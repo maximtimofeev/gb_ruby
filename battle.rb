@@ -3,10 +3,10 @@ class Ship
   attr_reader :owner, :type, :state
 
   def initialize(owner, type, state = 'alive')
-    if !(type.between?(1, 4))
-      raise 'Type of ship is incorrect'
-    end
-    @owner, @type, @state = owner, type, state
+    raise 'Type of ship is incorrect' unless (1..4).include? type
+    @owner =owner
+    @type = type
+    @state = state
   end
 
 end
