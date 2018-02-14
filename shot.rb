@@ -1,11 +1,21 @@
 require_relative 'coord'
+
 # class for shots
 class Shot < Coord
-  def initialize(ship_coords)
-    @ship_coords = ship_coords
+  def hit?(coord)
+    @coords.include?(coord)
   end
 
-  def hit?(x, y)
-    @ship_coords.include?([x, y])
-  end
+  def fire(ship, coord)
+    if self.hit?(coord)
+      if ship.state == 'dead'
+        puts "#{coord}: shot hitted already"
+      else
+        puts ship.state
+      end
+      puts "#{coord}: shot hitted"
+    else
+      puts "#{coord}: shot missed"
+    end
+	end
 end

@@ -1,6 +1,7 @@
 # ship class
 class Ship
-  attr_reader :owner, :type, :state
+  attr_reader :owner, :type
+  attr_accessor :state
 
   def initialize(owner, type, state = 'alive')
     raise 'Type of ship is incorrect' unless (1..4).cover? type
