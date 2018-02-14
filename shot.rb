@@ -17,5 +17,5 @@ class Shot < Coord
     else
       puts "#{coord}: shot missed"
     end
-	end
+  end
 end
