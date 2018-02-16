@@ -1,12 +1,10 @@
+require_relative 'ship'
+
 # coordinates class
 class Coord
-  attr_accessor :name, :type
+  attr_accessor :name, :type, :coords
 
-  def initialize(*coords_list)
-    @coords = coords_list
-  end
-
-  def built_correctly?
-    @coords.size == @type
+  def initialize(x, y)
+    @coords = [x, y]
   end
 end
