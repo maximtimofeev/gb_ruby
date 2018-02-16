@@ -3,8 +3,7 @@ class Coord
   attr_accessor :name, :type
 
   def initialize(*coords_list)
-    @coords = []
-    coords_list.each { |coord| @coords << coord }
+    @coords = coords_list
   end
 
   def built_correctly?
