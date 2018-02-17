@@ -1,7 +1,5 @@
-$LOAD_PATH << '.'
-
-require 'ship'
-require 'shot'
+require_relative 'ship'
+require_relative 'shot'
 ship_coords = [[1, 2], [1, 3], [1, 4]]
 
 ship = Ship.new('Max', 3, ship_coords)
@@ -16,11 +14,9 @@ puts shot.fire(ship)
 
 # my_loop { puts 'hello' }
 # shorter method end
-
-puts "Количество палуб 1: #{Ship.how_many_ships(1)} кораблей"
-puts "Количество палуб 2: #{Ship.how_many_ships(2)} кораблей"
-puts "Количество палуб 3: #{Ship.how_many_ships(3)} кораблей"
-puts "Количество палуб 4: #{Ship.how_many_ships(4)} кораблей"
+1.upto(4) do |type|
+  puts "Количество палуб #{type}: #{Ship.how_many_ships(type)} кораблей"
+end
 puts Ship.how_many_ships(0)
 puts Ship.how_many_ships(5)
 
@@ -65,4 +61,4 @@ arr = %w[cat dog tiger]
 puts arr.map(&:upcase).concat(arr)
 
 # only 't'
-puts arr.select { |animal| animal.include?('t') }
+puts(arr.select { |animal| animal.include?('t') })
