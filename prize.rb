@@ -1,13 +1,13 @@
-def got_salary?(salary)
-  salary > 0
-end
+require_relative 'worker'
 
 print 'Enter worker\'s name: '
 name = gets.chomp
 print 'Enter worker\'s salary: '
 salary = gets.to_i
 
-if got_salary?(salary)
+# 1, 2 tasks
+
+if Worker.got_salary?(salary)
   prize = (salary + (salary * 0.1)).to_i
 
   # 1
@@ -18,4 +18,12 @@ if got_salary?(salary)
   puts str
 else
   puts 'Зарплата не была указана'
+end
+# 1, 2 tasks end
+
+workers = []
+3.times { workers << Worker.new(WorkerData.read_name, WorkerData.read_salary) }
+
+workers.each do |worker|
+  puts "Работник: #{worker.name}, заработная плата: #{worker.salary}"
 end
