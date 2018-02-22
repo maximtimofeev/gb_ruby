@@ -1,9 +1,9 @@
 require_relative 'errors'
-require_relative 'worker_data'
+require_relative 'data'
 
 # worker
 class Worker
-  include WorkerData
+  include Worker::Data
   attr_accessor :name, :salary
 
   def initialize(name, salary)
