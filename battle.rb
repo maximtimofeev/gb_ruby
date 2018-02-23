@@ -3,62 +3,12 @@ require_relative 'shot'
 ship_coords = [[1, 2], [1, 3], [1, 4]]
 
 ship = Ship.new('Max', 3, ship_coords)
+ship2 = Ship.new('Max', 3, ship_coords)
 shot = Shot.new(1, 2)
 
+puts "#{ship.similar} more ships of type #{ship.type}"
+puts "Ship has #{ship.hits} hit(s) taken. State: #{ship.state}"
+p ship.health
 puts shot.fire(ship)
-
-# shorter method start
-# def my_loop
-#   yield while true
-# end
-
-# my_loop { puts 'hello' }
-# shorter method end
-1.upto(4) do |type|
-  puts "Количество палуб #{type}: #{Ship.how_many_ships(type)} кораблей"
-end
-puts Ship.how_many_ships(0)
-puts Ship.how_many_ships(5)
-
-# puts 'Enter ship\'s owner: '
-# ship_owner = gets.chomp
-
-# puts 'Enter ship\'s type: '
-# ship_type = gets.to_i
-
-# ship_coords2 = []
-
-# build ship way 1
-# loop do
-#   puts 'Enter cell coordinates: '
-#   x = gets.to_i
-#   y = gets.to_i
-#   ship_coords2 << [x, y]
-#   if ship_coords2.size == ship_type
-#     break
-#   end
-# end
-
-# build ship way 2
-# while ship_coords2.size != ship_type
-#   puts 'Enter cell coordinates: '
-#   x = gets.to_i
-#   y = gets.to_i
-#   ship_coords2 << [x, y]
-# end
-
-# build ship way 3
-# until ship_coords2.size == ship_type
-#   puts 'Enter cell coordinates: '
-#   x = gets.to_i
-#   y = gets.to_i
-#   ship_coords2 << [x, y]
-# end
-# ship2 = Ship.new(ship_owner, ship_type, ship_coords2)
-
-# iterator map
-arr = %w[cat dog tiger]
-puts arr.map(&:upcase).concat(arr)
-
-# only 't'
-puts(arr.select { |animal| animal.include?('t') })
+puts "Ship has #{ship.hits} hit(s) taken. State: #{ship.state}"
+p ship.health
