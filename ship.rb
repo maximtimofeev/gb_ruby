@@ -2,7 +2,7 @@ require_relative 'constants'
 
 # ship class
 class Ship
-  include Ship::Constant
+  include Constant
   attr_reader :owner, :type
   attr_accessor :state, :coords, :health
 
@@ -20,8 +20,7 @@ class Ship
     end
 
     def how_many_ships(size)
-      case size
-      when 1..Ship::MAX_SIZE
+      if (1..Ship::MAX_SIZE).cover? size
         5 - size
       else
         Ship::COORDS_ERROR
@@ -42,17 +41,17 @@ class Ship
 
   # methods for checking
   def check_args(type, ship_coords)
-    raise Ship::TYPE_ERROR unless (1..Ship::MAX_SIZE).cover? type
-    raise Ship::COORDS_ERROR unless Ship.built_correctly?(type, ship_coords)
+    raise TYPE_ERROR unless (1..MAX_SIZE).cover? type
+    raise COORDS_ERROR unless Ship.built_correctly?(type, ship_coords)
   end
 
   def count_total
-    raise Ship::SHIP_LIMIT if @@total_ships == Ship::MAX_SHIPS
+    raise SHIP_LIMIT if @@total_ships == MAX_SHIPS
     @@total_ships += 1
   end
 
   def count_type(type)
-    raise Ship::SHIP_TYPE_LIMIT if Ship.how_many_ships(type) == @@ships[type]
+    raise SHIP_TYPE_LIMIT if Ship.how_many_ships(type) == @@ships[type]
     @@ships[type] += 1
   end
   # end methods for checking
