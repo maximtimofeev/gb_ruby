@@ -7,7 +7,12 @@ class Ship
   attr_accessor :state, :coords, :health
 
   @@total_ships = 0
-  @@ships = { 1 => 0, 2 => 0, 3 => 0, 4 => 0 }
+  @@ships = {
+    FOUR_DECK => 0,
+    THREE_DECK => 0,
+    TWO_DECK => 0,
+    ONE_DECK => 0
+  }
 
   class << self
     def built_correctly?(type, coords)
@@ -42,19 +47,13 @@ class Ship
   end
 
   def count_total
-    if @@total_ships == Ship::MAX_SHIPS
-      raise Ship::SHIP_LIMIT
-    else
-      @@total_ships += 1
-    end
+    raise Ship::SHIP_LIMIT if @@total_ships == Ship::MAX_SHIPS
+    @@total_ships += 1
   end
 
   def count_type(type)
-    if Ship.how_many_ships(type) == @@ships[type]
-      raise Ship::SHIP_TYPE_LIMIT
-    else
-      @@ships[type] += 1
-    end
+    raise Ship::SHIP_TYPE_LIMIT if Ship.how_many_ships(type) == @@ships[type]
+    @@ships[type] += 1
   end
   # end methods for checking
 
@@ -68,10 +67,6 @@ class Ship
 
   def take_hit(coords)
     health.delete(coords)
-    @state = if health.empty?
-               'dead'
-             else
-               'injured'
-             end
+    @state = health.empty? ? 'dead' : 'injured'
   end
 end

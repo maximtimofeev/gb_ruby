@@ -9,5 +9,9 @@ class Ship
 
     MAX_SHIPS = 10
     MAX_SIZE = 4
+    ONE_DECK = 4
+    TWO_DECK = 3
+    THREE_DECK = 2
+    FOUR_DECK = 1
   end
 end
