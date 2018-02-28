@@ -10,8 +10,9 @@ class Coord
   end
 
   def to_ary
-    @coords.to_ary
+    @coords
   end
+
   def to_s
     @coords.to_s
   end

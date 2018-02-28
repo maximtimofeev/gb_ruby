@@ -3,11 +3,11 @@ require_relative 'coord'
 # battle field class
 class Field
   def initialize(a, b)
-    @cells = []
-    (0...a).map do |x|
-      (0...b).map do |y|
-        @cells << Coord.new(x, y)
-      end
+    x = -1
+    @cells = Array.new(a) do
+      x += 1
+      y = -1
+      Array.new(b) { Coord.new(x, y += 1) }
     end
   end
 
@@ -16,6 +16,12 @@ class Field
   end
 
   def to_s
-    @cells.to_s
+    @cells.map do |row|
+      row.map(&:to_s).join(' ')
+    end
+  end
+
+  def each
+    @cells.each { |cell| yield cell } if block_given?
   end
 end

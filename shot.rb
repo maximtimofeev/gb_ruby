@@ -9,9 +9,9 @@ class Shot < Coord
   def fire(ship)
     if hit?(ship)
       ship.take_hit(coords)
-      puts "#{coords}: shot hitted"
+      "#{coords}: shot hitted"
     else
-      puts "#{coords}: shot missed"
+      "#{coords}: shot missed"
     end
   end
 end
