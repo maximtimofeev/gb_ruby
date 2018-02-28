@@ -6,6 +6,8 @@ class Ship
     COORDS_ERROR = 'Amount of ship\'s coordinates is incorrect'.freeze
     SHIP_LIMIT = 'Ship\'s limit is reached'.freeze
     SHIP_TYPE_LIMIT = 'Too many ships of this type'.freeze
+    OUT_OF_FIELD = 'Ship is out of field'.freeze
+    ANOTHER_SHIP_CLOSE = 'Another ship is too close'.freeze
 
     MAX_SHIPS = 10
     MAX_SIZE = 4

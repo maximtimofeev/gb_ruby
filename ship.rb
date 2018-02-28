@@ -1,5 +1,5 @@
 require_relative 'constants'
-
+require 'pry'
 # ship class
 class Ship
   include Constant
@@ -20,18 +20,48 @@ class Ship
     end
 
     def how_many_ships(size)
-      if (1..Ship::MAX_SIZE).cover? size
-        5 - size
-      else
-        Ship::COORDS_ERROR
+      (1..Ship::MAX_SIZE).cover?(size) ? 5 - size : Ship::COORDS_ERROR
+    end
+
+    def in_field?(coords, field)
+      correct = true
+      coords.map do |coord|
+        correct && field[coord.to_a.first][coord.to_a.last] == coord
+      end
+    end
+
+    def correct_place?(coords, field)
+      outer_space = []
+      coords_a = []
+      correct = true
+
+      coords.map do |coordinate|
+        coord = coordinate.to_a
+        coords_a << coord
+        outer_space << [coord.first, coord.last + 1]
+        outer_space << [coord.first, coord.last - 1]
+        outer_space << [coord.first + 1, coord.last]
+        outer_space << [coord.first - 1, coord.last]
+        outer_space << [coord.first + 1, coord.last + 1]
+        outer_space << [coord.first + 1, coord.last - 1]
+        outer_space << [coord.first - 1, coord.last + 1]
+        outer_space << [coord.first - 1, coord.last - 1]
+      end
+      outer_space -= coords_a
+      outer_space.uniq!
+
+      outer_space.map do |coord|
+        cell_state = field[coord.to_a.first][coord.to_a.last].state
+        correct && (cell_state == 'empty' || cell_state == nil)
       end
     end
   end
 
-  def initialize(owner, type, ship_coords, state = 'alive')
-    check_args(type, ship_coords)
+  def initialize(owner, type, ship_coords, field, state = 'alive')
+    check_args(type, ship_coords, field)
     count_total
     count_type(type)
+    ship_coords.each { |coord| coord.state = 'ship' }  
     @owner = owner
     @type = type
     @coords = ship_coords
@@ -39,10 +69,12 @@ class Ship
     @health = ship_coords
   end
 
-  # methods for checking
-  def check_args(type, ship_coords)
+  # methods for initializing
+  def check_args(type, ship_coords, field)
     raise TYPE_ERROR unless (1..MAX_SIZE).cover? type
     raise COORDS_ERROR unless Ship.built_correctly?(type, ship_coords)
+    raise OUT_OF_FIELD unless Ship.in_field?(ship_coords, field)
+    # raise ANOTHER_SHIP_CLOSE if Ship.correct_place?(ship_coords, field)
   end
 
   def count_total
@@ -54,7 +86,7 @@ class Ship
     raise SHIP_TYPE_LIMIT if Ship.how_many_ships(type) == @@ships[type]
     @@ships[type] += 1
   end
-  # end methods for checking
+  # end methods for initializing
 
   def similar
     @@ships[@type] - 1
@@ -65,7 +97,11 @@ class Ship
   end
 
   def take_hit(coords)
-    health.delete(coords)
+    health[health.index(coords)].state = 'smashed'
     @state = health.empty? ? 'dead' : 'injured'
+  end
+
+  def delete
+    @coords.each { |coord| coord.state = 'empty' }
   end
 end

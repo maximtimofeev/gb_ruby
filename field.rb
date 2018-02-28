@@ -16,9 +16,7 @@ class Field
   end
 
   def to_s
-    @cells.map do |row|
-      row.map(&:to_s).join(' ')
-    end
+    @cells
   end
 
   def each

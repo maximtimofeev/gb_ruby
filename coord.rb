@@ -9,11 +9,20 @@ class Coord
     @state = state
   end
 
-  def to_ary
+  def [](index)
+    @coords[index]
+  end
+
+  def ==(other)
+    return @coords == other if other.respond_to? :[]
+    super
+  end
+
+  def to_a
     @coords
   end
 
   def to_s
-    @coords.to_s
+    "#{@coords.to_s}, state: #{state}"
   end
 end
