@@ -21,6 +21,11 @@ Shoes.app width: 520, height: 600 do
     end
   end
 
+  button('Clear') do
+    clear_board
+    @slot.clear
+  end
+
   click do |button, x, y|
     if coords = find_piece(x, y)
       fill_rectangle coords

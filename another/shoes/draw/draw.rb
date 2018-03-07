@@ -25,6 +25,15 @@ module Draw
     end
   end
 
+  def clear_board
+    draw_board
+    GAME.battle_field.each_with_index do |row_array, row|
+      row_array.each_with_index do |col_array, col|
+        GAME.battle_field[row][col] = nil
+      end
+    end
+  end
+
   def find_piece(x, y)
     GAME.board.each_with_index do |row_array, row|
       row_array.each_with_index do |col_array, col|
